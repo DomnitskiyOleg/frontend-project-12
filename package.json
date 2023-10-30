@@ -18,8 +18,5 @@
   "bugs": {
     "url": "https://github.com/DomnitskiyOleg/frontend-project-12/issues"
   },
-  "homepage": "https://github.com/DomnitskiyOleg/frontend-project-12#readme",
-  "dependencies": {
-    "@hexlet/chat-server": "^1.1.8"
-  }
+  "homepage": "https://github.com/DomnitskiyOleg/frontend-project-12#readme"
 }
