@@ -2,7 +2,7 @@
   "name": "@hexlet/code",
   "version": "1.0.0",
   "description": "chat application",
-  "main": "src/index.js",
+  "main": "./",
   "scripts": {
     "start": "start-server -s ./frontend/build",
     "build": "npm run build --prefix frontend",
