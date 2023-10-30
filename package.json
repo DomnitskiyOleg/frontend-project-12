@@ -4,7 +4,7 @@
   "description": "chat application",
   "main": "src/index.js",
   "scripts": {
-    "start": "start-server -s ./frontend/build & cd frontend && npm start",
+    "start": "start-server -s ./frontend/build",
     "build": "npm run build --prefix frontend",
     "test": "echo \"Error: no test specified\" && exit 1",
     "postinstall": "cd frontend && npm ci"
