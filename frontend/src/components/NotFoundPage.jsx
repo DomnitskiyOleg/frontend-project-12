@@ -2,8 +2,7 @@ import React, { useLayoutEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { TextPlugin } from 'gsap/TextPlugin';
-import { Container } from 'react-bootstrap';
-import Card from 'react-bootstrap/Card';
+import { Card, Row, Col } from 'react-bootstrap';
 
 gsap.registerPlugin(TextPlugin);
 
@@ -26,29 +25,27 @@ const NotFound = () => {
   };
 
   return (
-    <Container
-      ref={component}
-      className="d-flex flex-column align-items-center justify-content-center"
-    >
-      <Card className="text-center m-5 col-lg-6 col-12 border-light-subtle">
-        <Card.Img variant="top" src="404.gif" />
-        <Card.Body>
-          <Card.Title className="header h4 text-muted" ref={header}>
-            {' '}
-          </Card.Title>
-        </Card.Body>
-        <Card.Footer>
-          <p className="text-muted">
-            Перейти на
-            {' '}
-            <a href="a" onClick={onClick}>
-              главную страницу
-            </a>
-          </p>
-        </Card.Footer>
-      </Card>
-      <h1> </h1>
-    </Container>
+    <Row className="justify-content-center">
+      <Col className="col-12 col-sm-4">
+        <Card className="text-center border-light-subtle shadow-sm">
+          <Card.Img variant="top" src="404.gif" />
+          <Card.Body>
+            <Card.Title className="header h4 text-muted" ref={header}>
+              {' '}
+            </Card.Title>
+          </Card.Body>
+          <Card.Footer>
+            <p className="text-muted">
+              Перейти на
+              {' '}
+              <a href="a" onClick={onClick}>
+                главную страницу
+              </a>
+            </p>
+          </Card.Footer>
+        </Card>
+      </Col>
+    </Row>
   );
 };
 

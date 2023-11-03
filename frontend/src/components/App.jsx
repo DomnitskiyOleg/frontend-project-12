@@ -21,7 +21,7 @@ function App() {
 
   return (
     <Router>
-      <Navbar expand="lg" className="shadow-sm bg-body-tertiary">
+      <Navbar expand="lg" className="shadow-sm bg-body-wigth">
         <Container>
           <Navbar.Brand as={Link} to="/" onMouseEnter={onEnter} onMouseLeave={onLeave}>
             <img
@@ -37,13 +37,13 @@ function App() {
           <Button className="btn btn-primary">Выйти</Button>
         </Container>
       </Navbar>
-      <Container className="flex-grow-1 bg-danger">
+      <div className="d-flex container-fluid h-100 justify-content-center align-items-center bg-light">
         <Routes>
           <Route path="*" element={<NotFound />} />
           <Route path="/" element={null} />
           <Route path="/login" element={<LogIn />} />
         </Routes>
-      </Container>
+      </div>
     </Router>
   );
 }
