@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
+import axios from 'axios';
 import {
   Card,
   Row,
@@ -9,15 +10,23 @@ import {
   FloatingLabel,
   Image,
 } from 'react-bootstrap';
+import { Link, useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 import * as formik from 'formik';
+import routes from '../routes/routes';
+import useAuth from '../hooks';
+import loginImage from '../assets/loginImage.png';
 
 const LogIn = () => {
   const { Formik } = formik;
+  const navigate = useNavigate();
+  const { logIn } = useAuth();
   const loginShema = yup.object().shape({
-    username: yup.string().required().min(5),
-    password: yup.string().required().min(6),
+    username: yup.string().required('Это обязательное поле'),
+    password: yup.string().required('Это обязательное поле'),
   });
+  const [authFailed, setAuthFailed] = useState(false);
+  const usernameInput = useRef();
   return (
     <Container>
       <Row className="justify-content-center">
@@ -25,11 +34,24 @@ const LogIn = () => {
           <Card className="text-center">
             <Card.Body className="row p-5">
               <div className="col-12 col-md-6 d-flex justify-content-center align-items-center">
-                <Image width="200" height="250" src="3.png" />
+                <Image src={loginImage} width="200" height="250" />
               </div>
               <Formik
                 validationSchema={loginShema}
-                onSubmit={() => {}}
+                onSubmit={async (userData, { setSubmitting }) => {
+                  try {
+                    const response = await axios.post(routes.loginPath(), userData);
+                    console.log(response.data);
+                    localStorage.setItem('userId', JSON.stringify(response.data));
+                    logIn();
+                    navigate('/');
+                  } catch (e) {
+                    usernameInput.current.select();
+                    setAuthFailed(true);
+                    setSubmitting(false);
+                    console.log(e);
+                  }
+                }}
                 initialValues={{
                   username: '',
                   password: '',
@@ -49,12 +71,13 @@ const LogIn = () => {
                           type="username"
                           name="username"
                           onChange={handleChange}
-                          isInvalid={!!errors.username}
+                          isInvalid={authFailed || !!errors.username}
                           value={values.username}
                           placeholder="Ваш ник"
+                          ref={usernameInput}
                         />
                         <Form.Control.Feedback type="invalid" tooltip>
-                          {errors.username}
+                          {errors.username || 'Неправильный логин или пароль'}
                         </Form.Control.Feedback>
                       </FloatingLabel>
                     </Form.Group>
@@ -64,12 +87,12 @@ const LogIn = () => {
                           type="password"
                           name="password"
                           onChange={handleChange}
-                          isInvalid={!!errors.password}
+                          isInvalid={authFailed || !!errors.password}
                           value={values.password}
                           placeholder="Пароль"
                         />
                         <Form.Control.Feedback type="invalid" tooltip>
-                          {errors.password}
+                          {errors.password || 'Неправильный логин или пароль'}
                         </Form.Control.Feedback>
                       </FloatingLabel>
                     </Form.Group>
@@ -81,7 +104,7 @@ const LogIn = () => {
             <Card.Footer className="text-muted p-3">
               Нет аккаунта?
               {' '}
-              <a href="a">Регистрация</a>
+              <Link to="/registration">Регистрация</Link>
             </Card.Footer>
           </Card>
         </Col>

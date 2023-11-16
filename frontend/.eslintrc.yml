@@ -10,5 +10,11 @@ parserOptions:
   sourceType: module
 plugins:
   - react
-rules: { react/function-component-definition: 0,
-react/jsx-filename-extension: 0 }
+rules:
+  {
+    react/function-component-definition: 0,
+    react/jsx-filename-extension: 0,
+    react/prop-types: 0,
+    react/jsx-no-constructed-context-values: 0,
+    no-param-reassign: 0,
+  }

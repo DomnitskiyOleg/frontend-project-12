@@ -6,10 +6,16 @@ import {
   Route,
   Link,
 } from 'react-router-dom';
-import { Navbar, Container, Button } from 'react-bootstrap';
+import { Navbar, Container } from 'react-bootstrap';
+import AuthProvider from './AuthProvider';
 import NotFound from './NotFoundPage';
 import LogIn from './LogInPage';
+import LogOutButton from './LogOutButton';
+import PrivateRoute from './PrivateRoute';
+import Registration from './Registration';
+import Chat from './Chat';
 import '../App.css';
+import 'bootstrap/dist/js/bootstrap.min';
 
 function App() {
   const onEnter = ({ currentTarget }) => {
@@ -20,31 +26,39 @@ function App() {
   };
 
   return (
-    <Router>
-      <Navbar expand="lg" className="shadow-sm bg-body-wigth">
-        <Container>
-          <Navbar.Brand as={Link} to="/" onMouseEnter={onEnter} onMouseLeave={onLeave}>
-            <img
-              alt=""
-              src="logo.png"
-              width="30"
-              height="30"
-              className="d-inline-block align-top"
-            />
-            {' '}
-            Small Talk
-          </Navbar.Brand>
-          <Button className="btn btn-primary">Выйти</Button>
-        </Container>
-      </Navbar>
-      <div className="d-flex container-fluid h-100 justify-content-center align-items-center bg-light">
-        <Routes>
-          <Route path="*" element={<NotFound />} />
-          <Route path="/" element={null} />
-          <Route path="/login" element={<LogIn />} />
-        </Routes>
-      </div>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <Navbar expand="lg" className="shadow-sm bg-body-wigth">
+          <Container>
+            <Navbar.Brand
+              as={Link}
+              to="/"
+              onMouseEnter={onEnter}
+              onMouseLeave={onLeave}
+            >
+              <img
+                alt=""
+                src="logo.png"
+                width="30"
+                height="30"
+                className="d-inline-block align-top"
+              />
+              {' '}
+              Small Talk
+            </Navbar.Brand>
+            <LogOutButton />
+          </Container>
+        </Navbar>
+        <div className="d-flex container-fluid flex-grow-1 justify-content-center align-items-center bg-light py-4">
+          <Routes>
+            <Route path="*" element={<NotFound />} />
+            <Route path="/" element={<PrivateRoute><Chat /></PrivateRoute>} />
+            <Route path="/login" element={<LogIn />} />
+            <Route path="/registration" element={<Registration />} />
+          </Routes>
+        </div>
+      </Router>
+    </AuthProvider>
   );
 }
 

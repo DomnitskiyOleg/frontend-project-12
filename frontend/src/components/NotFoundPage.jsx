@@ -26,7 +26,7 @@ const NotFound = () => {
 
   return (
     <Row className="justify-content-center">
-      <Col className="col-12 col-sm-4">
+      <Col className="col-12 col-sm-6">
         <Card className="text-center border-light-subtle shadow-sm">
           <Card.Img variant="top" src="404.gif" />
           <Card.Body>
@@ -34,7 +34,7 @@ const NotFound = () => {
               {' '}
             </Card.Title>
           </Card.Body>
-          <Card.Footer>
+          <Card.Footer ref={component}>
             <p className="text-muted">
               Перейти на
               {' '}
