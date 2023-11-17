@@ -4,7 +4,7 @@ const MessageBox = ({ messages, currentChannelId }) => {
   const channelMessages = messages
     .filter(({ channelId }) => channelId === currentChannelId)
     .map(({ id, message, username }) => (
-      <div key={id} className="text-break mb-2">
+      <div key={id} className="text-truncate mb-2">
         <b>{`${username}: `}</b>
         {message}
       </div>

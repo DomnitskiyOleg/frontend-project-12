@@ -49,14 +49,15 @@ function App() {
             <LogOutButton />
           </Container>
         </Navbar>
-        <div className="h-100 d-flex container-fluid justify-content-center overflow-hidden align-items-center bg-light py-4">
-          <Routes>
-            <Route path="*" element={<NotFound />} />
-            <Route path="/" element={<PrivateRoute><Chat /></PrivateRoute>} />
-            <Route path="/login" element={<LogIn />} />
-            <Route path="/registration" element={<Registration />} />
-          </Routes>
-        </div>
+        <Routes>
+          <Route path="*" element={<NotFound />} />
+          <Route
+            path="/"
+            element={<PrivateRoute><Chat /></PrivateRoute>}
+          />
+          <Route path="/login" element={<LogIn />} />
+          <Route path="/registration" element={<Registration />} />
+        </Routes>
       </Router>
     </AuthProvider>
   );

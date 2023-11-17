@@ -7,7 +7,7 @@ const Channelslist = ({ chanels, currentChannelId }) => {
   const channelsList = chanels.map(({ id, name }) => (
     <li key={id} className="w-100 mb-2">
       <button
-        className={`w-100 nav-link ${id === currentChannelId ? 'active' : ''}`}
+        className={`text-truncate w-100 nav-link ${id === currentChannelId ? 'active' : ''}`}
         id="v-pills-home-tab"
         data-bs-toggle="pill"
         data-bs-target="#v-pills-home"
