@@ -10,14 +10,17 @@ import {
   FloatingLabel,
   Image,
 } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 import * as formik from 'formik';
+import { setUsername } from '../slices/usernameSlice';
 import routes from '../routes/routes';
 import useAuth from '../hooks';
 import loginImage from '../assets/loginImage.png';
 
 const LogIn = () => {
+  const dispatch = useDispatch();
   const { Formik } = formik;
   const navigate = useNavigate();
   const { logIn } = useAuth();
@@ -41,15 +44,14 @@ const LogIn = () => {
                 onSubmit={async (userData, { setSubmitting }) => {
                   try {
                     const response = await axios.post(routes.loginPath(), userData);
-                    console.log(response.data);
                     localStorage.setItem('userId', JSON.stringify(response.data));
+                    dispatch(setUsername(response.data.username));
                     logIn();
                     navigate('/');
                   } catch (e) {
                     usernameInput.current.select();
                     setAuthFailed(true);
                     setSubmitting(false);
-                    console.log(e);
                   }
                 }}
                 initialValues={{

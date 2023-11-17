@@ -1,5 +1,6 @@
 import React from 'react';
 import { gsap } from 'gsap';
+import socket from '../sockets/index';
 
 const AddChannelButton = () => {
   const onEnter = ({ currentTarget }) => {
@@ -11,6 +12,9 @@ const AddChannelButton = () => {
 
   return (
     <button
+      onClick={async () => {
+        await socket.emitWithAck('newChannel', { name: 'superChannel' });
+      }}
       type="button"
       className="p-0 text-primary btn btn-group-vertical"
       onMouseEnter={onEnter}

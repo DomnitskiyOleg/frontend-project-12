@@ -1,19 +1,35 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Form } from 'react-bootstrap';
 import { useFormik } from 'formik';
+import socket from '../sockets/index';
 
-const SendMessageForm = () => {
+const SendMessageForm = ({ currentChannelId }) => {
+  const { username } = useSelector((state) => state.username);
   const formik = useFormik({
     initialValues: {
       message: '',
     },
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+    onSubmit: async ({ message }) => {
+      try {
+        formik.resetForm();
+        await socket.emitWithAck('newMessage', {
+          message,
+          username,
+          channelId: currentChannelId,
+        });
+      } catch (e) {
+        console.log(e);
+      }
     },
   });
   return (
     <div className="mt-auto py-3 px-5">
-      <Form noValidate="" className="py-1 border rounded-2">
+      <Form
+        onSubmit={formik.handleSubmit}
+        noValidate=""
+        className="py-1 border rounded-2"
+      >
         <Form.Group className="input-group has-validation">
           <Form.Control
             name="message"
@@ -23,7 +39,11 @@ const SendMessageForm = () => {
             onChange={formik.handleChange}
             value={formik.values.message}
           />
-          <button type="submit" className="btn btn-group-vertical" disabled="">
+          <button
+            type="submit"
+            className="btn btn-group-vertical"
+            disabled={formik.values.message.length === 0}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 16 16"

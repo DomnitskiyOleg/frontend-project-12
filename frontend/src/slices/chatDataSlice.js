@@ -24,12 +24,29 @@ const initialState = {
 const chatDataSlice = createSlice({
   name: 'chatData',
   initialState,
-  reducers: {},
+  reducers: {
+    addChannel: (state, action) => {
+      const { payload } = action;
+      state.channels.push(payload);
+    },
+    addMessage: (state, action) => {
+      const { payload } = action;
+      state.messages.push(payload);
+    },
+    changeChannel: (state, action) => {
+      const { payload } = action;
+      state.currentChannelId = payload;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchChatData.fulfilled, (state, action) => {
-      console.log(action);
+      const { channels, currentChannelId, messages } = action.payload;
+      state.channels = channels;
+      state.currentChannelId = currentChannelId;
+      state.messages = messages;
     });
   },
 });
 
+export const { addChannel, addMessage, changeChannel } = chatDataSlice.actions;
 export default chatDataSlice.reducer;

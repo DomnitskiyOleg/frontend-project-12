@@ -49,7 +49,7 @@ function App() {
             <LogOutButton />
           </Container>
         </Navbar>
-        <div className="d-flex container-fluid flex-grow-1 justify-content-center align-items-center bg-light py-4">
+        <div className="h-100 d-flex container-fluid justify-content-center overflow-hidden align-items-center bg-light py-4">
           <Routes>
             <Route path="*" element={<NotFound />} />
             <Route path="/" element={<PrivateRoute><Chat /></PrivateRoute>} />
