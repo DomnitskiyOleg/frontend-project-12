@@ -1,16 +1,16 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { Form } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import socket from '../sockets/index';
 
 const SendMessageForm = ({ currentChannelId }) => {
-  const { username } = useSelector((state) => state.username);
+  // const { username } = useSelector((state) => state.username);
   const formik = useFormik({
     initialValues: {
       message: '',
     },
     onSubmit: async ({ message }) => {
+      const { username } = JSON.parse(localStorage.getItem('userId'));
       try {
         formik.resetForm();
         await socket.emitWithAck('newMessage', {
@@ -24,7 +24,7 @@ const SendMessageForm = ({ currentChannelId }) => {
     },
   });
   return (
-    <div className="mt-auto py-3 px-5">
+    <div className="mt-auto py-3 px-4">
       <Form
         onSubmit={formik.handleSubmit}
         noValidate=""

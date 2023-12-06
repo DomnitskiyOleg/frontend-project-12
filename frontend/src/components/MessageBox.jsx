@@ -12,7 +12,7 @@ const MessageBox = ({ messages, currentChannelId }) => {
   return (
     <div
       id="messages-box"
-      className="h-100 chat-messages px-5 mywrapper overflow-auto"
+      className="h-100 chat-messages px-4 overflow-auto"
     >
       {channelMessages}
     </div>

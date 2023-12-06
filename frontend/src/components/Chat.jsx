@@ -23,7 +23,7 @@ const Chat = () => {
           <Col className="h-100 col-12">
             <Row className="h-100 justify-content-center">
               <Col className="d-flex flex-column col-4 col-md-3 col-lg-2 shadow m-1 rounded bg-light">
-                <div className="d-flex justify-content-between p-4">
+                <div className="d-flex justify-content-between py-4">
                   <b>Каналы</b>
                   <AddChannelButton />
                 </div>
